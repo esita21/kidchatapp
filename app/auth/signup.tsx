@@ -1,12 +1,17 @@
+import { signup } from "@/services/authService";
 import { useRouter } from "expo-router";
+import { useState } from "react";
 import { StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 export default function SignupScreen() {
     const router = useRouter();
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
     const goToLogin = () =>{
         router.replace("/auth/login")
     }
-    const handleSignup = () => {
-        router.replace("/main");
+    const handleSignup = async () => {
+        if(await signup(email, password))
+            router.replace("/main");
     }
     return(
         <View style={styles.container}>
@@ -14,8 +19,8 @@ export default function SignupScreen() {
             <View style={styles.auth}> 
                 <Text style={styles.title}>Signup</Text>
                 <View>
-                    <TextInput placeholder="Email" style={styles.input}/>
-                    <TextInput placeholder="Password" secureTextEntry  style={styles.input}/>
+                    <TextInput placeholder="Email" style={styles.input} onChangeText={setEmail} keyboardType="email-address"/>
+                    <TextInput placeholder="Password" secureTextEntry  style={styles.input} onChangeText={setPassword}/>
                     <TouchableOpacity style={styles.submitButton} onPress={handleSignup}>
                         <Text style={styles.submitButtonText}>Signup</Text>
                     </TouchableOpacity>

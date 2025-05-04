@@ -1,10 +1,11 @@
+import { logout } from "@/services/authService";
 import { useRouter } from "expo-router";
 import { Button, Text, View } from "react-native";
 
 export default function SettingScreen() {
     const router = useRouter();
-    const handleLogout = () => {
-        router.replace("/auth/login");
+    const handleLogout = async () => {
+        await logout();
     }
     return (
         <View>
