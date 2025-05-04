@@ -5,6 +5,9 @@ export default function SignupScreen() {
     const goToLogin = () =>{
         router.replace("/auth/login")
     }
+    const handleSignup = () => {
+        router.replace("/main");
+    }
     return(
         <View style={styles.container}>
         
@@ -13,7 +16,7 @@ export default function SignupScreen() {
                 <View>
                     <TextInput placeholder="Email" style={styles.input}/>
                     <TextInput placeholder="Password" secureTextEntry  style={styles.input}/>
-                    <TouchableOpacity style={styles.submitButton}>
+                    <TouchableOpacity style={styles.submitButton} onPress={handleSignup}>
                         <Text style={styles.submitButtonText}>Signup</Text>
                     </TouchableOpacity>
                     
