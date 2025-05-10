@@ -134,7 +134,7 @@ export default function SettingScreen() {
 
         {/* Menu Section */}
         <View style={styles.menu}>
-          <TouchableOpacity style={styles.menuItem} onPress={() => router.push("../profile")}>
+          <TouchableOpacity style={styles.menuItem} onPress={() => router.push("/main/editprofile")}>
             <Text style={styles.menuText}>👤 Edit Profile</Text>
           </TouchableOpacity>
 
