@@ -13,7 +13,7 @@ const ProfilePic: React.FC<ProfilePicProps> = ({ size, source }) => {
         <View style={[styles.container, { width: size, height: size, borderRadius: size / 2 }]}>
             <Image
                 source={ source }
-                style={[styles.image, { width: size, height: size, borderRadius: size / 2 }]}
+                style={ { width: size, height: size, borderRadius: size / 2 }}
             />
         </View>
     );
@@ -21,13 +21,11 @@ const ProfilePic: React.FC<ProfilePicProps> = ({ size, source }) => {
 
 const styles = StyleSheet.create({
     container: {
-        overflow: 'hidden',
+      
         justifyContent: 'center',
-        flex: 1,
+        
     },
-    image: {
-        resizeMode: 'cover',
-    },
+    
 });
 
 export default ProfilePic;
