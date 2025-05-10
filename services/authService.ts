@@ -1,7 +1,11 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useRouter } from "expo-router";
 import { initializeApp } from "firebase/app";
-import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword, signOut, User } from "firebase/auth";
+//@ts-ignore
+import { createUserWithEmailAndPassword, getReactNativePersistence, initializeAuth, signInWithEmailAndPassword, signOut, User,browserSessionPersistence, getAuth ,setPersistence} from "firebase/auth";
+
 import { useEffect, useState } from "react";
+import { Platform } from "react-native";
 
 const firebaseConfig = {
   apiKey: process.env.EXPO_PUBLIC_API_KEY,
@@ -16,8 +20,17 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-
+// 
+const auth =  (Platform.OS==="web")? getAuth(app) :initializeAuth(app, {
+    persistence: getReactNativePersistence(AsyncStorage),
+    });
+    if (Platform.OS === "web") 
+    setPersistence(auth, browserSessionPersistence)
+    .catch((error) => {
+        console.error("Error setting persistence:", error);
+    });
+        
+    
 export const signup = async (email: string, password: string) => {
     try {
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
@@ -55,6 +68,9 @@ export const useAuth = () => {
             setUser(user);
             if (!user) { 
                 router.replace("/auth/login")
+            }
+            else {
+                router.replace("/main");
             }
 
         })
